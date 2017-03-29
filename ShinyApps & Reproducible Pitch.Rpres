@@ -1,0 +1,58 @@
+Shiny Application and Reproducible Pitch
+========================================================
+author: Jeffrey Boey
+date: 29th March 2017
+autosize: true
+
+Overview
+========================================================
+
+This is the final project for the course, Developing Data Products. 
+There are 2 activities in the project:
+- Create a Shiny application
+- Create a presentation in Slidify/RStudio Presenter to pitch for the application
+
+Guess The Number
+========================================================
+
+[This](https://jeffreyboey.shinyapps.io/myapp/) is a short simple game created using Shiny application.
+
+Objective:
+- Match the number with the computer's number
+
+How To Play:
+- Guess the number by entering in the textbox
+- Enter the "Go!" button
+- Computer will reply whether if your number is
+  - Within range
+  - Lower than computer's selection
+  - Higher than computer's selection
+  
+Behind The Scene (UI)
+========================================================
+ui.R
+- How it obtain the user input from the textbox ?
+```{r ui, eval=FALSE}
+sidebarPanel
+  ( textInput('guess', 'Number', value = ""),
+    h5('Please press \'Go!\' only on your first attempt'),
+    actionButton("goButton", "Go!"))
+```
+
+Behind The Scene (Server)
+========================================================
+server.R
+- How did the computer compare both numbers ?
+```{r server, eval=FALSE}
+if (guess > 50) 
+  {   returnValue <- 'Above 50.\nPlease make a selection between 1 and 50.'  }
+  else if (guess < 1) 
+  {   returnValue <- 'Below 1.\nPlease make a selection between 1 and 50.'   }
+  else if (guess > number) 
+  { returnValue <- 'Higher than the number.'                                 }
+  else if (guess < number) 
+  { returnValue <- 'Lower than the number.'                                  }
+  else if (guess == number) 
+  { returnValue <- 'Correct!'                                                }
+  returnValue
+```
